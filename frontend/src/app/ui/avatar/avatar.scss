@@ -1,0 +1,24 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background: var(--avatar-bg);
+  border: 1px solid var(--avatar-border);
+  color: var(--secondary-foreground);
+  font-weight: 500;
+  user-select: none;
+
+  &[data-size='sm'] {
+    width: 28px;
+    height: 28px;
+    font-size: 11px;
+  }
+
+  &[data-size='md'] {
+    width: 36px;
+    height: 36px;
+    font-size: 13px;
+  }
+}

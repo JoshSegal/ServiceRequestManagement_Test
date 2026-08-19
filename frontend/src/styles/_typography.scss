@@ -1,0 +1,104 @@
+@mixin display {
+  font-size: 30px;
+  line-height: 36px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+@mixin h1 {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+@mixin h2 {
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+@mixin h3 {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+}
+
+@mixin body-lg {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+@mixin body {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+}
+
+@mixin body-medium {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+@mixin label {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+@mixin small {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+}
+
+@mixin caption {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+}
+
+.text-display {
+  @include display;
+}
+
+.text-h1 {
+  @include h1;
+}
+
+.text-h2 {
+  @include h2;
+}
+
+.text-h3 {
+  @include h3;
+}
+
+.text-body-lg {
+  @include body-lg;
+}
+
+.text-body {
+  @include body;
+}
+
+.text-body-medium {
+  @include body-medium;
+}
+
+.text-label {
+  @include label;
+}
+
+.text-small {
+  @include small;
+}
+
+.text-caption {
+  @include caption;
+
+  color: var(--text-muted);
+}

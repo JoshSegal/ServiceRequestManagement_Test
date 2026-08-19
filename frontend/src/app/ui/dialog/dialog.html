@@ -1,0 +1,32 @@
+<!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
+<div class="scrim" (click)="onScrimClick()"></div>
+
+<div
+  #panel
+  class="dialog"
+  role="dialog"
+  aria-modal="true"
+  [attr.aria-labelledby]="titleId"
+  [style.max-width.px]="width()"
+  (keydown)="onKeydown($event)"
+>
+  <header class="header">
+    <div class="titles">
+      <h2 class="title" [id]="titleId">{{ title() }}</h2>
+      @if (description()) {
+        <p class="description">{{ description() }}</p>
+      }
+    </div>
+    <button app-icon-button icon="x" aria-label="Close dialog" (click)="closed.emit()"></button>
+  </header>
+
+  @if (hasBody()) {
+    <div class="body">
+      <ng-content />
+    </div>
+  }
+
+  <footer class="footer">
+    <ng-content select="[dialogFooter]" />
+  </footer>
+</div>

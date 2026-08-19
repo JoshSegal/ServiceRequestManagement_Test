@@ -1,0 +1,29 @@
+@if (label()) {
+  <label class="field-label" [attr.for]="id">{{ label() }}</label>
+}
+
+<!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
+<div class="field" [class.is-disabled]="disabled()" (click)="focusInput()">
+  @for (item of labels(); track item) {
+    <span class="chip">
+      {{ item }}
+      <button
+        type="button"
+        class="chip-remove"
+        [attr.aria-label]="'Remove ' + item"
+        (click)="remove(item); $event.stopPropagation()"
+      >
+        <app-icon name="x" [size]="12" />
+      </button>
+    </span>
+  }
+  <input
+    #input
+    [id]="id"
+    class="chip-input"
+    [placeholder]="labels().length ? '' : placeholder()"
+    [disabled]="disabled()"
+    (keydown)="onKeydown($event)"
+    (blur)="commit(); onTouched()"
+  />
+</div>

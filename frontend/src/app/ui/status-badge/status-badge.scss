@@ -1,0 +1,35 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius-full);
+  padding: 2px var(--space-2-5);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  white-space: nowrap;
+
+  &[data-status='Open'] {
+    background: var(--status-open-bg);
+    color: var(--status-open-fg);
+  }
+
+  &[data-status='InProgress'] {
+    background: var(--status-progress-bg);
+    color: var(--status-progress-fg);
+  }
+
+  &[data-status='InReview'] {
+    background: var(--status-review-bg);
+    color: var(--status-review-fg);
+  }
+
+  &[data-status='Resolved'] {
+    background: var(--status-resolved-bg);
+    color: var(--status-resolved-fg);
+  }
+
+  &[data-status='Closed'] {
+    background: var(--status-closed-bg);
+    color: var(--status-closed-fg);
+  }
+}

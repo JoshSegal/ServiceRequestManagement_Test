@@ -1,0 +1,70 @@
+@if (label()) {
+  <label class="field-label" [attr.for]="id">
+    {{ label() }}
+    @if (required()) {
+      <span class="req" aria-hidden="true">*</span>
+    }
+  </label>
+}
+
+<div class="control">
+  <button
+    type="button"
+    class="trigger"
+    [id]="id"
+    [class.is-open]="open()"
+    [class.has-error]="!!error()"
+    [disabled]="disabled()"
+    role="combobox"
+    aria-haspopup="listbox"
+    [attr.aria-expanded]="open()"
+    [attr.aria-label]="ariaLabel() || null"
+    [attr.aria-describedby]="error() ? id + '-error' : null"
+    [attr.aria-activedescendant]="open() && activeIndex() >= 0 ? optionId(activeIndex()) : null"
+    [attr.aria-controls]="id + '-listbox'"
+    (click)="toggle()"
+    (keydown)="onTriggerKeydown($event)"
+  >
+    <span class="value" [class.is-placeholder]="!selected()">
+      @if (selected(); as option) {
+        @if (option.dotColor) {
+          <span class="dot" [style.background]="option.dotColor"></span>
+        }
+        {{ option.label }}
+      } @else {
+        {{ placeholder() }}
+      }
+    </span>
+    <app-icon class="chevron" name="chevron-down" [size]="16" />
+  </button>
+
+  @if (open()) {
+    <ul class="menu" role="listbox" [id]="id + '-listbox'">
+      @for (option of options(); track option.value; let i = $index) {
+        <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
+        <li
+          class="item"
+          role="option"
+          [id]="optionId(i)"
+          [class.is-highlighted]="i === activeIndex()"
+          [class.is-selected]="option.value === value()"
+          [attr.aria-selected]="option.value === value()"
+          (click)="select(option)"
+          (mouseenter)="activeIndex.set(i)"
+        >
+          @if (option.dotColor) {
+            <span class="dot" [style.background]="option.dotColor"></span>
+          }
+          <span class="item-label">{{ option.label }}</span>
+          @if (option.value === value()) {
+            <app-icon class="check" name="check" [size]="16" />
+          }
+        </li>
+      }
+    </ul>
+  }
+</div>
+
+@if (error()) {
+  <p class="field-error" [id]="id + '-error'">{{ error() }}</p>
+}

@@ -1,0 +1,146 @@
+@if (loading()) {
+  <div class="loading">
+    <app-skeleton width="140px" height="16px" />
+    <app-skeleton width="60%" height="28px" />
+    <app-skeleton width="100%" height="180px" />
+  </div>
+} @else if (notFound()) {
+  <div class="notfound">
+    <p class="text-h2">Ticket not found</p>
+    <a app-button variant="outline" routerLink="/tickets">Back to tickets</a>
+  </div>
+} @else if (ticket(); as ticket) {
+  <a class="back" routerLink="/tickets">
+    <app-icon name="arrow-left" [size]="16" />
+    Back to tickets
+  </a>
+
+  <header class="head">
+    <div class="head-main">
+      <span class="ref">{{ ticket.reference }}</span>
+      <h1 class="text-h1">{{ ticket.title }}</h1>
+      <div class="meta">
+        <app-status-badge [status]="ticket.status" />
+        <app-priority-badge [priority]="ticket.priority" />
+        <span class="opened"
+          >opened by {{ ticket.reporter }} · {{ formatRelative(ticket.createdAt) }}</span
+        >
+      </div>
+    </div>
+    <div class="actions">
+      <button
+        app-icon-button
+        icon="trash"
+        aria-label="Delete ticket"
+        (click)="deleting.set(true)"
+      ></button>
+      <button app-button variant="outline" (click)="editing.set(true)">Edit</button>
+      <button
+        app-button
+        [disabled]="ticket.status === 'Resolved'"
+        [loading]="busy()"
+        (click)="markResolved()"
+      >
+        Mark resolved
+      </button>
+    </div>
+  </header>
+
+  <div class="columns">
+    <div class="main">
+      <section class="card">
+        <h2 class="text-h3 card-title">Description</h2>
+        <div class="markdown" [innerHTML]="ticket.description | markdown"></div>
+      </section>
+
+      <section class="activity">
+        <h2 class="activity-title">Activity</h2>
+
+        @if (commentsLoading()) {
+          <app-skeleton width="100%" height="16px" />
+        } @else {
+          <ul class="comments" role="list">
+            @for (comment of comments(); track comment.id) {
+              <li class="comment">
+                <span class="comment-time">{{ formatRelative(comment.createdAt) }}</span>
+                <p class="comment-body">{{ comment.body }}</p>
+              </li>
+            } @empty {
+              <p class="muted">No activity yet. Be the first to comment.</p>
+            }
+          </ul>
+        }
+
+        <div class="composer">
+          <app-textarea
+            [formControl]="draft"
+            [rows]="3"
+            placeholder="Add a comment…"
+            ariaLabel="Add a comment"
+          />
+          <div class="composer-actions">
+            <button
+              app-button
+              [loading]="posting()"
+              [disabled]="!draft.value.trim()"
+              (click)="postComment()"
+            >
+              Comment
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <aside class="sidebar">
+      <section class="card">
+        <h2 class="sidebar-title">Details</h2>
+        <dl class="details">
+          <dt>Status</dt>
+          <dd><app-status-badge [status]="ticket.status" /></dd>
+          <dt>Priority</dt>
+          <dd><app-priority-badge [priority]="ticket.priority" /></dd>
+          <dt>Labels</dt>
+          <dd class="labels">
+            @for (label of ticket.labels; track label) {
+              <span class="tag">{{ label }}</span>
+            } @empty {
+              <span class="muted">None</span>
+            }
+          </dd>
+          <dt>Created</dt>
+          <dd>{{ formatDateTime(ticket.createdAt) }}</dd>
+          <dt>Updated</dt>
+          <dd>{{ formatRelative(ticket.updatedAt) }}</dd>
+        </dl>
+      </section>
+    </aside>
+  </div>
+
+  @if (editing()) {
+    <app-edit-ticket-dialog
+      [ticket]="ticket"
+      (saved)="onSaved($event)"
+      (closed)="editing.set(false)"
+    />
+  }
+
+  @if (deleting()) {
+    <app-dialog
+      title="Delete ticket?"
+      description="Are you sure you want to delete this ticket? This action can't be undone."
+      [hasBody]="false"
+      [width]="420"
+      (closed)="deleting.set(false)"
+    >
+      <div dialogFooter>
+        <button app-button variant="outline" data-autofocus (click)="deleting.set(false)">
+          Cancel
+        </button>
+        <button app-button variant="destructive" [loading]="busy()" (click)="confirmDelete()">
+          Delete
+        </button>
+      </div>
+    </app-dialog>
+  }
+}

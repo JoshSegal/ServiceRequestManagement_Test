@@ -1,0 +1,17 @@
+<div class="page">
+  <div class="card">
+    <header class="card-head">
+      <h1 class="text-h1">Create ticket</h1>
+      <p class="subtitle">Log a new issue or request. Fields marked * are required.</p>
+    </header>
+
+    <app-ticket-form [form]="form" [submitted]="submitted()" />
+
+    <div class="divider"></div>
+
+    <footer class="card-foot">
+      <button app-button variant="outline" (click)="cancel()">Cancel</button>
+      <button app-button [loading]="saving()" (click)="submit()">Create ticket</button>
+    </footer>
+  </div>
+</div>

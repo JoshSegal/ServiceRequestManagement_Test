@@ -1,0 +1,32 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: currentcolor;
+}
+
+:host([data-priority='Low']) {
+  color: var(--priority-low);
+}
+
+:host([data-priority='Medium']) {
+  color: var(--priority-medium);
+}
+
+:host([data-priority='High']) {
+  color: var(--priority-high);
+}
+
+:host([data-priority='Urgent']) {
+  color: var(--priority-urgent);
+}

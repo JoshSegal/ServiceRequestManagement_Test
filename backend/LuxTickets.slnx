@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/LuxTickets.Api/LuxTickets.Api.csproj" />
+    <Project Path="src/LuxTickets.Application/LuxTickets.Application.csproj" />
+    <Project Path="src/LuxTickets.Domain/LuxTickets.Domain.csproj" />
+    <Project Path="src/LuxTickets.Infrastructure/LuxTickets.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/LuxTickets.IntegrationTests/LuxTickets.IntegrationTests.csproj" />
+    <Project Path="tests/LuxTickets.UnitTests/LuxTickets.UnitTests.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,20 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  color: var(--text-muted);
+}
+
+.pagination button[data-variant='default'],
+.pagination button[data-variant='ghost'] {
+  min-width: 32px;
+  padding-inline: var(--space-2);
+}

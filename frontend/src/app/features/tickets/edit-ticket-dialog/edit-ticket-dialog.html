@@ -1,0 +1,20 @@
+<app-dialog
+  title="Edit ticket"
+  [description]="ticket().reference"
+  [width]="520"
+  (closed)="closed.emit()"
+>
+  @if (conflict()) {
+    <app-alert variant="error">
+      This ticket was changed by someone else. Reload the ticket to see the latest version, then
+      re-apply your edits.
+    </app-alert>
+  }
+
+  <app-ticket-form [form]="form" [submitted]="submitted()" />
+
+  <div dialogFooter>
+    <button app-button variant="outline" (click)="closed.emit()">Cancel</button>
+    <button app-button [loading]="saving()" (click)="submit()">Save changes</button>
+  </div>
+</app-dialog>

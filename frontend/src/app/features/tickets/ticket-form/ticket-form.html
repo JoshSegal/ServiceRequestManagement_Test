@@ -1,0 +1,39 @@
+<div class="fields" [formGroup]="form()">
+  <app-input
+    formControlName="title"
+    label="Title"
+    [required]="true"
+    placeholder="Short summary of the issue"
+    [error]="titleError()"
+  />
+
+  <app-textarea
+    formControlName="description"
+    label="Description"
+    [required]="true"
+    [rows]="5"
+    placeholder="Steps to reproduce, expected vs. actual behaviour, and any relevant links."
+    hint="Markdown is supported."
+    [error]="descriptionError()"
+  />
+
+  <div class="row-2">
+    <app-select
+      formControlName="status"
+      label="Status"
+      [options]="statusOptions"
+      ariaLabel="Status"
+    />
+    <app-select
+      formControlName="priority"
+      label="Priority"
+      [required]="true"
+      placeholder="Select priority"
+      [options]="priorityOptions"
+      ariaLabel="Priority"
+      [error]="priorityError()"
+    />
+  </div>
+
+  <app-labels-input formControlName="labels" label="Labels" placeholder="Add labels…" />
+</div>

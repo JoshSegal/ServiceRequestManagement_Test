@@ -1,0 +1,39 @@
+:host {
+  display: block;
+  min-height: 100dvh;
+  background: var(--background);
+}
+
+.topbar {
+  border-bottom: 1px solid var(--border);
+  background: var(--background);
+}
+
+.topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  max-width: var(--canvas-width);
+  margin: 0 auto;
+  padding-inline: var(--space-8);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.brand-name {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.content {
+  max-width: var(--canvas-width);
+  margin: 0 auto;
+  padding: var(--space-8);
+}
